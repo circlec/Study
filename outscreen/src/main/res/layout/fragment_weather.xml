@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_weather"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".view.WeatherFragment">
+
+    <TextView
+        android:id="@+id/tv_today_weak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        tools:text="周五" />
+
+    <TextView
+        android:id="@+id/tv_today_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_today_weak"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="10sp"
+        tools:text="5月1日" />
+
+    <ImageView
+        android:id="@+id/iv_today_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_today_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_brightness_black_36dp" />
+
+    <TextView
+        android:id="@+id/tv_today_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_today_weather"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        tools:text="10 - 20 ℃" />
+
+    <TextView
+        android:id="@+id/tv_today_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_today_wind"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="10sp"
+        tools:text="晴天" />
+
+    <TextView
+        android:id="@+id/tv_today_wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:textColor="@android:color/white"
+        android:maxLines="1"
+        android:textSize="10sp"
+        tools:text="东风" />
+
+</RelativeLayout>
