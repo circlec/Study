@@ -4,40 +4,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptor;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.amap.api.maps.model.Tile;
 import com.amap.api.maps.model.TileOverlayOptions;
-import com.amap.api.maps.model.TileProvider;
 import com.amap.api.maps.model.UrlTileProvider;
 import com.wistive.travel.view.DotsLayout;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -106,10 +90,20 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(recevier, intentFilter);
     }
 
+    private Marker curShowWindowMarker;
+
     private void initMap(Bundle savedInstanceState) {
         mMapView = (MapView) findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
         aMap = mMapView.getMap();
+        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if (curShowWindowMarker != null) {
+                    curShowWindowMarker.hideInfoWindow();
+                }
+            }
+        });
         LatLng latLng = new LatLng(28.0841180000, 116.9930360000);
         aMap.addMarker(new MarkerOptions().position(latLng).title("龙虎山").snippet("DefaultMarker"));
         LatLng latLng_t = new LatLng(28.1142180000, 116.9781360000);
@@ -118,11 +112,8 @@ public class MainActivity extends AppCompatActivity {
         AMap.OnMarkerClickListener markerClickListener = new AMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                if (marker.isInfoWindowShown()) {
-                    marker.hideInfoWindow();
-                } else {
-                    marker.showInfoWindow();
-                }
+                marker.showInfoWindow();
+                curShowWindowMarker = marker;
                 return true;
             }
         };
@@ -186,7 +177,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void useAssetFile() {
         TileOverlayOptions tileOverlayOptions =
-                new TileOverlayOptions().tileProvider(new AssetTileProvider(this.getResources().getAssets()){});
+                new TileOverlayOptions().tileProvider(new AssetTileProvider(this.getResources().getAssets()) {
+                });
         aMap.addTileOverlay(tileOverlayOptions);
 
     }
