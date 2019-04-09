@@ -5,16 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ennova.outscreen.bean.Weather;
+import com.ennova.outscreen.activity.MapActivity;
 import com.ennova.outscreen.network.ApiService;
 import com.ennova.outscreen.utils.DateUtils;
 import com.ennova.outscreen.video.MyFragmentPagerAdapter;
@@ -29,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,7 +38,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public static final String ACTION_PAGER_CHANGE = "ACTION.pager_change";
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initBorcastReceiver();
         initFragment();
-        initTitleTime();
+        showTitleTime();
         initWeather();
         updateTime();
         initVideo();
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragment_list);
         viewPager.setAdapter(adapter);
         dotsLayout = findViewById(R.id.mydots);
-        dotsLayout.setDot(0,fragment_list.size());
+        dotsLayout.setDot(0, fragment_list.size());
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int index) {
-                dotsLayout.setDot(index,fragment_list.size());
+                dotsLayout.setDot(index, fragment_list.size());
             }
 
             @Override
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(Long aLong) {
-                        initTitleTime();
+                        showTitleTime();
                     }
                 });
     }
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl("http://apis.juhe.cn/")
                 .build();
-        retrofit.create(ApiService.class).getWeather("北京", "f971c2219357f31d9a47e97332cec63f")
+        retrofit.create(ApiService.class).getWeather("鹰潭", "f971c2219357f31d9a47e97332cec63f")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Weather>() {
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initTitleTime() {
+    private void showTitleTime() {
         String time = DateUtils.getHHMM(System.currentTimeMillis()) + getAmPm();
         tvTime.setText(time);
     }
@@ -195,6 +195,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return "下午";
         }
+    }
+
+    @OnClick(R.id.tv_map)
+    public void onViewClicked() {
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
     }
 
 

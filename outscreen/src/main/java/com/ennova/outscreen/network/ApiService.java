@@ -1,6 +1,7 @@
 package com.ennova.outscreen.network;
 
 
+import com.ennova.outscreen.bean.Points;
 import com.ennova.outscreen.bean.Weather;
 
 import retrofit2.http.GET;
@@ -17,5 +18,6 @@ public interface ApiService {
     @GET("simpleWeather/query")
     Observable<Weather> getWeather(@Query("city") String city, @Query("key") String key);
 
-
+    @GET("h5/shop/map/index")
+    Observable<Points> getPoints(@Query("shopType") String shopType);
 }

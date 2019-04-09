@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private MyBrocastReceiver recevier;
     private IntentFilter intentFilter;
     private DotsLayout dotsLayout;
-    AMap aMap;
-
+    private AMap aMap;
+    private Marker curShowWindowMarker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(recevier, intentFilter);
     }
 
-    private Marker curShowWindowMarker;
+
 
     private void initMap(Bundle savedInstanceState) {
         mMapView = (MapView) findViewById(R.id.map);

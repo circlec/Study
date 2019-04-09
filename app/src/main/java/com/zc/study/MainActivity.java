@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(intent);
 //            Intent intent =  new Intent(Settings.ACTION_SETTINGS);
 //            startActivity(intent);
-            Intent intent = new Intent(MainActivity.this, PagersActivity.class);
+            Intent intent = new Intent(MainActivity.this, BasicActivity.class);
             startActivity(intent);
         });
         getTestCount();
