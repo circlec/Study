@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="340px"
+    android:layout_height="340px"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="340px"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="16px"
         android:text="标题"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/info"
-        android:layout_width="wrap_content"
+        android:layout_width="340px"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="详情"
+        android:maxLines="2"
+        android:paddingLeft="16px"
+        android:paddingRight="16px"
+        android:paddingBottom="16px"
+        android:text="详情详情"
         android:textSize="18sp" />
 
 </LinearLayout>

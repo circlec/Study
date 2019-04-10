@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_weather"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="472px"
     android:background="@drawable/bg_weather"
     android:orientation="vertical"
     tools:showIn="@layout/activity_main">
@@ -11,13 +11,16 @@
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="98px"
         android:gravity="center"
         android:padding="4dp"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         tools:text="10:00上午" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/white"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,27 +28,41 @@
 
         <include layout="@layout/layout_today_weather" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
         <fragment
             android:id="@+id/fg_first"
             android:name="com.ennova.outscreen.view.WeatherFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
         <fragment
             android:id="@+id/fg_second"
             android:name="com.ennova.outscreen.view.WeatherFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
         <fragment
             android:id="@+id/fg_third"
             android:name="com.ennova.outscreen.view.WeatherFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
-
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
         <fragment
             android:id="@+id/fg_fourth"
             android:name="com.ennova.outscreen.view.WeatherFragment"

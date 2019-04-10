@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ennova.outscreen.bean.Weather;
 import com.ennova.outscreen.activity.MapActivity;
+import com.ennova.outscreen.bean.Videos;
+import com.ennova.outscreen.bean.Weather;
 import com.ennova.outscreen.network.ApiService;
+import com.ennova.outscreen.network.HttpMethods;
 import com.ennova.outscreen.utils.DateUtils;
 import com.ennova.outscreen.video.MyFragmentPagerAdapter;
 import com.ennova.outscreen.video.VideoFragment;
@@ -40,7 +43,7 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
 
-    public static final String ACTION_PAGER_CHANGE = "ACTION.pager_change";
+    public static final String ACTION_PAGER_CHANGE = "ACTION.PAGER_CHANGE";
 
     @BindView(R.id.tv_time)
     TextView tvTime;
@@ -57,10 +60,10 @@ public class MainActivity extends BaseActivity {
     WeatherFragment fg_third;
     WeatherFragment fg_fourth;
     Subscription subscribe_auto;
+    @BindView(R.id.vp_video)
+    ViewPager viewPager;
 
-    private ArrayList<Fragment> fragment_list = new ArrayList<>();//存放ViewPager下的Fragment
-    private Fragment fragment1, fragment2, fragment3;
-    private ViewPager viewPager;
+    private ArrayList<Fragment> fragment_list = new ArrayList<>();
     private MyFragmentPagerAdapter adapter;
     private MyBrocastReceiver recevier;
     private DotsLayout dotsLayout;
@@ -79,33 +82,51 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initVideo() {
-        viewPager = findViewById(R.id.vp_video);
-        fragment1 = VideoFragment.newInstance("http://travel.enn.cn/group1/M00/00/0A/CiaAUlyAxreASu7hABnIV4_GV2I891.mp4");
-        fragment2 = VideoFragment.newInstance("http://travel.enn.cn/group1/M00/00/0A/CiaAUlyAxbuAFwcBABOztqZJKFM900.mp4");
-        fragment3 = VideoFragment.newInstance("http://jzvd.nathen.cn/c6e3dc12a1154626b3476d9bf3bd7266/6b56c5f0dc31428083757a45764763b0-5287d2089db37e62345123a1be272f8b.mp4");
-        fragment_list.add(fragment1);
-        fragment_list.add(fragment2);
-        fragment_list.add(fragment3);
-        adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragment_list);
-        viewPager.setAdapter(adapter);
-        dotsLayout = findViewById(R.id.mydots);
-        dotsLayout.setDot(0, fragment_list.size());
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        HttpMethods.getInstance().getVideos(new Subscriber<Videos>(){
+
             @Override
-            public void onPageScrolled(int i, float v, int i1) {
+            public void onCompleted() {
 
             }
 
             @Override
-            public void onPageSelected(int index) {
-                dotsLayout.setDot(index, fragment_list.size());
+            public void onError(Throwable e) {
+                toast("network error");
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) {
+            public void onNext(Videos videos) {
+                if(videos!=null && videos.getCode()==0&&videos.getData()!=null&&videos.getData().getContent()!=null&&videos.getData().getContent().size()>0){
+                    for(int i=0;i<videos.getData().getContent().size();i++){
+                        if(!TextUtils.isEmpty(videos.getData().getContent().get(i).getContentPath())){
+                            Fragment fragment = VideoFragment.newInstance(videos.getData().getContent().get(i).getContentPath());
+                            fragment_list.add(fragment);
+                        }
+                    }
+                }
+                adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), fragment_list);
+                viewPager.setAdapter(adapter);
+                dotsLayout = findViewById(R.id.mydots);
+                dotsLayout.setDot(0, fragment_list.size());
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int i, float v, int i1) {
 
+                    }
+
+                    @Override
+                    public void onPageSelected(int index) {
+                        dotsLayout.setDot(index, fragment_list.size());
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int i) {
+
+                    }
+                });
             }
         });
+
     }
 
     private void initBorcastReceiver() {
@@ -125,6 +146,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        toast("network error");
                     }
 
                     @Override
@@ -151,7 +173,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        toast("network error");
                     }
 
                     @Override
@@ -197,12 +219,23 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.tv_map)
-    public void onViewClicked() {
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
+    @OnClick({R.id.iv_map, R.id.iv_product, R.id.iv_food})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_map:
+                Intent intent_map = new Intent(this, MapActivity.class);
+                startActivity(intent_map);
+                break;
+            case R.id.iv_product:
+                Intent intent_product = new Intent(this, MapActivity.class);
+                startActivity(intent_product);
+                break;
+            case R.id.iv_food:
+                Intent intent_food = new Intent(this, MapActivity.class);
+                startActivity(intent_food);
+                break;
+        }
     }
-
 
     public class MyBrocastReceiver extends BroadcastReceiver {
 

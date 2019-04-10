@@ -2,6 +2,8 @@ package com.ennova.outscreen.network;
 
 import com.ennova.outscreen.BuildConfig;
 import com.ennova.outscreen.bean.Points;
+import com.ennova.outscreen.bean.ShopDetail;
+import com.ennova.outscreen.bean.Videos;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +29,19 @@ public class HttpMethods {
 
     private Retrofit retrofit;
 
+
+    private static class SingletonHolder {
+        private static final HttpMethods INSTANCE = new HttpMethods();
+    }
+
+    public static HttpMethods getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+
+    public <T> T create(Class<T> service) {
+        return retrofit.create(service);
+    }
+
     private HttpMethods() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
@@ -43,19 +58,7 @@ public class HttpMethods {
                 .build();
     }
 
-    private static class SingletonHolder {
-        private static final HttpMethods INSTANCE = new HttpMethods();
-    }
-
-    public static HttpMethods getInstance() {
-        return SingletonHolder.INSTANCE;
-    }
-
-    public <T> T create(Class<T> service) {
-        return retrofit.create(service);
-    }
-
-    public void getPoints(String shopType, Subscriber<Points> subscriber){
+    public void getPoints(String shopType, Subscriber<Points> subscriber) {
         retrofit.create(ApiService.class)
                 .getPoints(shopType)
                 .subscribeOn(Schedulers.io())
@@ -63,4 +66,20 @@ public class HttpMethods {
                 .subscribe(subscriber);
     }
 
+
+    public void getVideos(Subscriber<Videos> subscriber) {
+        retrofit.create(ApiService.class)
+                .getVideos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void getShopDetail(int shopId, Subscriber<ShopDetail> subscriber) {
+        retrofit.create(ApiService.class)
+                .getShopDetail(String.valueOf(shopId))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 }

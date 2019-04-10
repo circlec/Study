@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
-        android:textSize="10sp"
+        android:textSize="9sp"
         tools:text="周五" />
 
     <TextView
@@ -26,13 +26,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
         android:textColor="@android:color/darker_gray"
-        android:textSize="10sp"
+        android:textSize="7sp"
         tools:text="5月1日" />
 
     <ImageView
         android:id="@+id/iv_today_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70px"
+        android:layout_height="70px"
         android:layout_below="@+id/tv_today_date"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
@@ -57,7 +57,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         android:textColor="@android:color/white"
-        android:textSize="10sp"
+        android:textSize="7sp"
         tools:text="晴天" />
 
     <TextView
@@ -69,7 +69,7 @@
         android:layout_marginBottom="8dp"
         android:textColor="@android:color/white"
         android:maxLines="1"
-        android:textSize="10sp"
+        android:textSize="7sp"
         tools:text="东风" />
 
 </RelativeLayout>

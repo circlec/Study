@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context=".MainActivity">
 
     <include layout="@layout/layout_weather" />
@@ -11,8 +12,10 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_video"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="531px"
+        android:layout_below="@+id/rl_button"
+        android:layout_marginTop="19px"
+        android:background="@mipmap/video" />
 
     <com.ennova.outscreen.view.DotsLayout
         android:id="@+id/mydots"
@@ -25,15 +28,50 @@
         android:padding="10dp"
         android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tv_map"
+    <RelativeLayout
+        android:id="@+id/rl_button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/vp_video"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/ll_weather"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:text="ToMap"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
+        android:layout_marginTop="19px">
+
+        <ImageView
+            android:id="@+id/iv_map"
+            android:layout_width="520px"
+            android:layout_height="471px"
+            android:src="@mipmap/map" />
+
+        <ImageView
+            android:id="@+id/iv_product"
+            android:layout_width="550px"
+            android:layout_height="230px"
+            android:layout_marginLeft="10px"
+            android:layout_toRightOf="@+id/iv_map"
+            android:src="@mipmap/product" />
+
+        <ImageView
+            android:id="@+id/iv_food"
+            android:layout_width="550px"
+            android:layout_height="230px"
+            android:layout_below="@+id/iv_product"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="10px"
+            android:layout_toRightOf="@+id/iv_map"
+            android:src="@mipmap/food" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="388px"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/video">
+
+        <ImageView
+            android:layout_width="313px"
+            android:layout_height="165px"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="19px"
+            android:layout_marginRight="17px"
+            android:src="@mipmap/cutdown_time" />
+    </RelativeLayout>
 </RelativeLayout>
