@@ -62,6 +62,7 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         video = view.findViewById(R.id.videoplayer);
+        video.fullscreenButton.setVisibility(View.INVISIBLE);
         loadVideoScreenshot(getContext(),videoUrl,video.thumbImageView,1);
         isViewCreated = true;
         lazyLoad();

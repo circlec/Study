@@ -32,4 +32,9 @@ public class MyJzvdStd extends JzvdStd {
         intent.setAction(MainActivity.ACTION_PAGER_CHANGE);
         context.sendBroadcast(intent);//发送标准广播
     }
+
+    @Override
+    public void onStateError() {
+        super.onStateError();
+    }
 }

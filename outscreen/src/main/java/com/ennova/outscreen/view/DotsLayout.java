@@ -42,16 +42,16 @@ public class DotsLayout extends LinearLayout {
         setOrientation(HORIZONTAL);
 
         GradientDrawable dot_normal = new GradientDrawable();
-        dot_normal.setSize(DensityUtil.dip2px(getContext(), 8), DensityUtil.dip2px(getContext(), 8));
-        dot_normal.setShape(GradientDrawable.OVAL);
+        dot_normal.setSize(DensityUtil.dip2px(getContext(), 8), DensityUtil.dip2px(getContext(), 2));
+        dot_normal.setShape(GradientDrawable.RECTANGLE);
         dot_normal.setColor(Color.TRANSPARENT);
-        dot_normal.setStroke(DensityUtil.dip2px(getContext(), 1), normalColor);
+        dot_normal.setStroke(DensityUtil.dip2px(getContext(), 0.5f), normalColor);
         normalDrawable = dot_normal;
 
         GradientDrawable dot_focus = new GradientDrawable();
         dot_focus.setColor(selectedColor);
-        dot_focus.setCornerRadius(DensityUtil.dip2px(getContext(), 4));
-        dot_focus.setSize(DensityUtil.dip2px(getContext(), 8), DensityUtil.dip2px(getContext(), 8));
+        dot_focus.setShape(GradientDrawable.RECTANGLE);
+        dot_focus.setSize(DensityUtil.dip2px(getContext(), 8), DensityUtil.dip2px(getContext(), 2));
         selectedDrawable = dot_focus;
 
         params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

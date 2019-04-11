@@ -177,7 +177,7 @@ public class MapActivity extends BaseActivity {
             }
         };
         aMap.setInfoWindowAdapter(infoWindowAdapter);
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(16));
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
         LatLng latLng = new LatLng(28.1157263127, 116.9781303406);
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
         TileOverlayOptions tileOverlayOptions =
