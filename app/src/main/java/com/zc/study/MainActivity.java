@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.zc.study.network.HttpMethods;
 import com.zc.study.network.testbean.TestCountResponse;
 import com.zc.study.pager.PagersActivity;
+import com.zc.study.tdswitch.TDSwitchActivity;
 
 import rx.Subscriber;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tv = findViewById(R.id.tv);
         tv.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PagersActivity.class);
+            Intent intent = new Intent(MainActivity.this, TDSwitchActivity.class);
             startActivity(intent);
         });
         getTestCount();
