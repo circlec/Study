@@ -1,15 +1,13 @@
 package com.zc.study.pager;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 
 import com.zc.study.R;
+import com.zc.study.view.tablayout.TabLayout;
 
 import java.util.ArrayList;
 
@@ -28,17 +26,17 @@ public class PagersActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.my_tablayout);
         viewPager = findViewById(R.id.my_viewpager);
         tab_title_list.add("页面1");
-        tab_title_list.add("页面2");
+        tab_title_list.add("页面面2");
         tab_title_list.add("页面3");
-        tab_title_list.add("页面4");
+        tab_title_list.add("页面页面4");
         tabLayout.addTab(tabLayout.newTab().setText(tab_title_list.get(0)));
         tabLayout.addTab(tabLayout.newTab().setText(tab_title_list.get(1)));
         tabLayout.addTab(tabLayout.newTab().setText(tab_title_list.get(2)));
         tabLayout.addTab(tabLayout.newTab().setText(tab_title_list.get(3)));
         fragment1 = TestFragment.newInstance("页面1");
-        fragment2 = TestFragment.newInstance("页面2");
+        fragment2 = TestFragment.newInstance("页面面2");
         fragment3 = TestFragment.newInstance("页面3");
-        fragment4 = TestFragment.newInstance("页面4");
+        fragment4 = TestFragment.newInstance("页面页面4");
         fragment_list.add(fragment1);
         fragment_list.add(fragment2);
         fragment_list.add(fragment3);
@@ -46,31 +44,8 @@ public class PagersActivity extends AppCompatActivity {
         adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), tab_title_list, fragment_list);
         viewPager.setAdapter(adapter);//给ViewPager设置适配器
         tabLayout.setupWithViewPager(viewPager);//将TabLayout与Viewpager联动起来
-        TabLayout.Tab tab =tabLayout.getTabAt(0);
-        View view = LayoutInflater.from(this).inflate(R.layout.layout_tab_my,null);
-        TextView tv = view.findViewById(R.id.tv_tab);
-        tv.setText(tab.getText());
-        tab.setCustomView(view);
-        tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                View view = LayoutInflater.from(PagersActivity.this).inflate(R.layout.layout_tab_my,null);
-                TextView tv = view.findViewById(R.id.tv_tab);
-                tv.setText(tab.getText());
-                tab.setCustomView(view);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setCustomView(null);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
+        tabLayout.setIndicatorWidthWrapContent(true);
+        tabLayout.setNeedSwitchAnimation(true);
         viewPager.setPageMargin(10);//控制两幅图之间的间距
         viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
         viewPager.setOffscreenPageLimit(3);

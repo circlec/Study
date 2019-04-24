@@ -7,17 +7,17 @@
     android:clipChildren="false"
     android:orientation="vertical">
 
-    <android.support.design.widget.TabLayout
+    <com.zc.study.view.tablayout.TabLayout
         android:id="@+id/my_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#ff555556"
         android:textSize="16sp"
-        app:tabIndicator="@android:color/transparent"
-        app:tabIndicatorColor="?attr/colorPrimary"
-        app:tabIndicatorFullWidth="false"
+        app:tabIndicator="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="2dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="?attr/colorPrimary" />
+        app:tabSelectedTextColor="@color/colorPrimaryDark" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/my_viewpager"
