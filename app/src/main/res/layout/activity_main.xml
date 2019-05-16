@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.zc.study.view.recents.RecentsList
+        android:id="@+id/recents"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:padding="16dp" />
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="20dp"
         android:background="@color/colorPrimary"
+        android:padding="20dp"
         android:text="跳转到XX"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
