@@ -9,11 +9,14 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.encdata.client.MessageHandler;
+import com.encdata.client.SocketClient;
 import com.zc.study.network.HttpMethods;
 import com.zc.study.network.testbean.TestCountResponse;
 import com.zc.study.pager.PagersActivity;
@@ -44,6 +47,36 @@ public class MainActivity extends AppCompatActivity {
             doService();
         }
 //        recentsView();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                testSocket();
+            }
+        }).start();
+
+    }
+    SocketClient client;
+    private void testSocket() {
+        Log.i("Test", "testSocket");
+        // 参数：主机IP、端口号、自定义的消息处理类
+         client = new SocketClient("10.4.140.222",8090,new TestMessageHandler());
+
+        String msg = "你好，服务器！";
+        boolean rst = client.sendMessage(msg);
+
+        if(rst){
+            System.out.println("发送成功。");
+            Log.i("Test", "testSocket: 发送成功。");
+        }
+
+    }
+    public class TestMessageHandler implements MessageHandler {
+        @Override
+        public void onMessage(String message) {
+            System.out.println(message);
+            Log.i("Test", "message:"+message);
+            client.disconnect();
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

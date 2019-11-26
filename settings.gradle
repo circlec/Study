@@ -1,1 +1,1 @@
-include ':app', ':geostudy', ':outscreen'
+include ':app', ':geostudy', ':outscreen', ':libaprilbrothersdk'
