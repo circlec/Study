@@ -26,7 +26,7 @@ android {
         from('build/intermediates/packaged-classes/release/') //jar文件来源
         into('build/libs/') //生成路径
         include('classes.jar')
-        rename('classes.jar', 'ab-sdk-beta1.7.4.jar') //命名为network.jar
+        rename('classes.jar', 'ab-sdk-beta1.7.5.jar') //命名为network.jar
     }
     makeJar.dependsOn(build)
 }

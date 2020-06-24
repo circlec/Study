@@ -50,7 +50,7 @@ public class AprilBeaconConnection {
     private static final String NAME7 = "abtemp";//
 
     private String str[] = {"AprilBeacon", "ABSensor", "ABLight",
-            "BEACONSTREAM", "abeacon", "asensor", "Aikaka", "PROX", "abtemp"};
+            "BEACONSTREAM", "abeacon", "asensor", "Aikaka", "PROX", "abtemp", "st"};
     // private String str[] = { "ABSensor" };
     private ArrayList<String> names;
 
@@ -556,7 +556,7 @@ public class AprilBeaconConnection {
         }
         if (beacon != null && !isNameContains) {
             mWriteCallback.onBeaconError();
-        } else if (beacon != null && beacon.getName().startsWith("a")) {
+        } else if (beacon != null && (beacon.getName().startsWith("a") || beacon.getName().startsWith("st"))) {
             this.password = password;
             connectABeacon(false, password);
         } else {
@@ -628,6 +628,7 @@ public class AprilBeaconConnection {
                         public void onWriteMinor2Success() {
                             mWriteCallback.onWriteMinor2Success();
                         }
+
                         @Override
                         public void onWriteMajorSuccess() {
                             mWriteCallback.onWriteMajorSuccess(
@@ -639,6 +640,7 @@ public class AprilBeaconConnection {
                             mWriteCallback.onWriteMinorSuccess(
                                     beacon.getMinor(), newMinor);
                         }
+
                         @Override
                         public void onWriteAdvSuccess() {
                             mWriteCallback.onWriteAdvertisingIntervalSuccess();
